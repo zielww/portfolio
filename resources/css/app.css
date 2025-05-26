@@ -7,5 +7,73 @@
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    'Segoe UI Symbol', 'Noto Color Emoji';
+
+
+    --color-dark-gray: #0a0a0a;
+    --color-medium-gray: #1a1a1a;
+    --color-light-gray: #2a2a2a;
+    --color-accent: #3b82f6;
+}
+
+
+/*Custom Styling for Components*/
+
+.gradient-text {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+    transform: translateY(-8px);
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.typing-animation {
+    border-right: 2px solid #3b82f6;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { border-color: #3b82f6; }
+    51%, 100% { border-color: transparent; }
+}
+
+.project-card {
+    background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+    border: 1px solid #2a2a2a;
+}
+
+.tag-filter {
+    transition: all 0.3s ease;
+}
+
+.tag-filter.active {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    color: white;
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
 }
