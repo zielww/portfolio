@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\File;
 
 class ProjectsController extends Controller
 {
@@ -33,7 +37,23 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'tags.*' => ['string', 'max:50'],
+            'demo_url' => ['nullable', 'url', 'max:255'],
+            'github_url' => ['nullable', 'url', 'max:255'],
+        ]);
+
+        $project = Project::create([
+            'user_id' => 1,
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'live_demo_url' => $validatedData['demo_url'] ?? null,
+            'github_url' => $validatedData['github_url'] ?? null,
+        ]);
+
+        return redirect('/projects')->with('success', 'Project created successfully!');
     }
 
     /**
@@ -59,26 +79,12 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Project $post)
-    {
-        return view('projects.edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Project $post)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $post)
+    public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return redirect('/projects');
     }
 }

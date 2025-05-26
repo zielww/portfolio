@@ -16,12 +16,6 @@
         <div class="max-w-7xl mx-auto">
             <div class="flex justify-end gap-3">
                 @auth()
-                    <a href="/projects/{{ $project->id }}/edit" class="inline-flex items-center px-4 py-2 bg-accent/20 text-accent border border-accent rounded-lg hover:bg-accent hover:text-white transition-all duration-300">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                        </svg>
-                        Edit Project
-                    </a>
                     <form action="/projects/{{ $project->id }}" method="POST">
                         @csrf
                         @method('delete')
@@ -43,7 +37,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <div class="flex items-center gap-3 mb-4">
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm font-medium">{{ $project->tags[0]->name }}</span>
+                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm font-medium">{{ $project->tags[0]->name ?? false }}</span>
                         <span class="text-gray-400">•</span>
                         <span class="text-gray-400">{{ $project->created_at->format('F Y') }}</span>
                     </div>

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->longText('description');
-            $table->string('live_demo_url');
-            $table->string('github_url');
+            $table->string('live_demo_url')->nullable();
+            $table->string('github_url')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

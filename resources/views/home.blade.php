@@ -49,7 +49,7 @@
                         <div class="flex items-center mb-6">
                             <div class="w-20 h-20 rounded-full bg-gradient-to-r from-accent to-purple-500 p-1 mr-6">
                                 <div class="w-full h-full rounded-full bg-dark-gray flex items-center justify-center">
-                                    <span class="text-2xl font-bold gradient-text">AC</span>
+                                    <img class="rounded-full font-bold gradient-text" src="{{ \Illuminate\Support\Facades\Vite::asset('resources/images/image_2.jpg') }}" alt="">
                                 </div>
                             </div>
                             <div>
