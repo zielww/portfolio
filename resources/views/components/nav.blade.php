@@ -2,11 +2,11 @@
 <nav class="fixed top-0 w-full bg-dark-gray/80 backdrop-blur-md z-50 border-b border-light-gray">
     <div class="max-w-7xl mx-auto px-6 py-4">
         <div class="flex justify-between items-center">
-            <div class="text-xl font-bold gradient-text">Clarence Palo</div>
+            <a href="/" class="text-xl font-bold gradient-text">Clarence Palo</a>
             <div class="hidden md:flex space-x-8">
                 <a href="#home" class="hover:text-accent transition-colors">Home</a>
                 <a href="#about" class="hover:text-accent transition-colors">About</a>
-                <a href="#projects" class="hover:text-accent transition-colors">Projects</a>
+                <a href="/projects" class="hover:text-accent transition-colors">Projects</a>
                 <a href="#contact" class="hover:text-accent transition-colors">Contact</a>
                 <a href="/login" class="text-accent hover:text-blue-900 transition-colors font-semibold">Sign In</a>
             </div>

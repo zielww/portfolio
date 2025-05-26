@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'about',
+        'position',
     ];
 
     /**
@@ -49,6 +51,6 @@ class User extends Authenticatable
 
     public function posts(): HasMany
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Project::class);
     }
 }

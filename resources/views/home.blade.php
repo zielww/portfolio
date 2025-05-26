@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clarence Palo - Portfolio</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-dark-gray text-white font-sans">
-    <!-- Navigation -->
-    @include('components.nav')
-
+<x-layout>
     <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-dark-gray via-medium-gray to-dark-gray"></div>
@@ -451,8 +440,4 @@
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    @include('components.footer')
-</body>
-</html>
+</x-layout>
