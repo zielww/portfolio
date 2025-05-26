@@ -21,7 +21,9 @@
                     View My Work
                 </a>
                 <button class="px-8 py-3 border border-accent text-accent rounded-lg font-semibold hover:bg-accent hover:text-white transition-all duration-300">
-                    Download CV
+                    <a href="https://www.bmc.org/sites/default/files/Patient_Care/Specialty_Care/Pediatrics-Infectious-Diseases/Fake-Resume.pdf" download="Sample-Resume.pdf" target="_blank">
+                        Download CV
+                    </a>
                 </button>
             </div>
         </div>
