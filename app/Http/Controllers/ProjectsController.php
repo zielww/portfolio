@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
@@ -12,7 +13,11 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        return view('projects.index');
+        $user = User::find(1);
+
+        $projects = Project::with(['user', 'tags'])->paginate(6);
+
+        return view('projects.index', compact('user', 'projects'));
     }
 
     /**
@@ -34,9 +39,23 @@ class ProjectsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $post)
+    public function show(Project $project)
     {
-        return view('projects.show');
+        $user = User::find(1);
+
+        $project = Project::find($project->id);
+
+        $tagIds = $project->tags->pluck('id');
+
+        $related_projects = Project::with(['tags', 'user'])
+            ->where('id', '!=', $project->id)
+            ->whereHas('tags', function ($query) use ($tagIds) {
+                $query->whereIn('tags.id', $tagIds);
+            })
+            ->limit(3)
+            ->get();
+
+        return view('projects.show', compact('user', 'project', 'related_projects'));
     }
 
     /**

@@ -54,7 +54,7 @@
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold mb-2">Clarence Palo</h3>
-                                <p class="text-accent font-medium">Junior Full-Stack Developer</p>
+                                <p class="text-accent font-medium">{{ Str::title($user->position) }}</p>
                             </div>
                         </div>
 
@@ -68,7 +68,7 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div class="text-center p-4 bg-dark-gray rounded-lg">
-                                <div class="text-2xl font-bold gradient-text">50+</div>
+                                <div class="text-2xl font-bold gradient-text">{{ count($user->projects) }}</div>
                                 <div class="text-gray-400 text-sm">Projects Completed</div>
                             </div>
                             <div class="text-center p-4 bg-dark-gray rounded-lg">
@@ -80,7 +80,7 @@
                                 <div class="text-gray-400 text-sm">Happy Clients</div>
                             </div>
                             <div class="text-center p-4 bg-dark-gray rounded-lg">
-                                <div class="text-2xl font-bold gradient-text">15+</div>
+                                <div class="text-2xl font-bold gradient-text">{{ count(\App\Models\Tag::all()) }}+</div>
                                 <div class="text-gray-400 text-sm">Technologies</div>
                             </div>
                         </div>
@@ -251,158 +251,37 @@
                 </p>
             </div>
 
-            <!-- Project Filters -->
-            <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in">
-                <button class="tag-filter active px-6 py-2 rounded-full bg-light-gray text-white font-medium" data-filter="all">
-                    All Projects
-                </button>
-                <button class="tag-filter px-6 py-2 rounded-full bg-light-gray text-gray-300 font-medium" data-filter="web">
-                    Web Development
-                </button>
-                <button class="tag-filter px-6 py-2 rounded-full bg-light-gray text-gray-300 font-medium" data-filter="mobile">
-                    Mobile Apps
-                </button>
-                <button class="tag-filter px-6 py-2 rounded-full bg-light-gray text-gray-300 font-medium" data-filter="design">
-                    UI/UX Design
-                </button>
-                <button class="tag-filter px-6 py-2 rounded-full bg-light-gray text-gray-300 font-medium" data-filter="ai">
-                    AI/ML
-                </button>
-            </div>
-
             <!-- Projects Grid -->
             <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Project 1 -->
-                <div class="project-card card-hover rounded-xl p-6 fade-in" data-category="web">
-                    <div class="h-48 bg-gradient-to-br from-accent/20 to-purple-500/20 rounded-lg mb-6 flex items-center justify-center">
-                        <div class="text-6xl">🚀</div>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">E-Commerce Platform</h3>
-                    <p class="text-gray-400 mb-4">A modern e-commerce solution built with React and Node.js, featuring real-time inventory management and payment processing.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">React</span>
-                        <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Node.js</span>
-                        <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">MongoDB</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <button class="flex-1 py-2 bg-accent/20 text-accent rounded-lg hover:bg-accent hover:text-white transition-colors">
-                            Live Demo
-                        </button>
-                        <button class="flex-1 py-2 border border-gray-600 rounded-lg hover:border-accent transition-colors">
-                            GitHub
-                        </button>
-                    </div>
-                </div>
+                @foreach($user->projects->take(6) as $project)
+                    <div onclick="window.location.href = '{{ url('/projects', $project->id) }}'" class="cursor-pointer project-card card-hover rounded-xl p-6 fade-in" data-category="web">
+                        <div class="h-48 bg-gradient-to-br from-accent/20 to-purple-500/20 rounded-lg mb-6 flex items-center justify-center">
+                            <div class="text-6xl">🚀</div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">{{ $project->title }}</h3>
+                        <p class="text-gray-400 mb-4">{{ $project->description }}</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            @foreach($project->tags as $tag)
+                                <span style="background-color: hsl({{ rand(0, 360) }}, 80% , 60%)" class="px-3 py-1 text-white rounded-full text-sm">{{ $tag->name }}</span>
+                            @endforeach
+                        </div>
+                        <div class="flex gap-3">
+                            <button class="flex-1 py-2 bg-accent/20 text-accent rounded-lg hover:bg-accent hover:text-white transition-colors">
+                                <a  target="_blank" href="{{ $project->live_demo_url }}" >
+                                    Live Demo
+                                </a>
+                            </button>
 
-                <!-- Project 2 -->
-                <div class="project-card card-hover rounded-xl p-6 fade-in" data-category="mobile">
-                    <div class="h-48 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg mb-6 flex items-center justify-center">
-                        <div class="text-6xl">📱</div>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Fitness Tracking App</h3>
-                    <p class="text-gray-400 mb-4">Cross-platform mobile app for tracking workouts and nutrition with social features and AI-powered recommendations.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">React Native</span>
-                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Firebase</span>
-                        <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm">TensorFlow</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <button class="flex-1 py-2 bg-accent/20 text-accent rounded-lg hover:bg-accent hover:text-white transition-colors">
-                            App Store
-                        </button>
-                        <button class="flex-1 py-2 border border-gray-600 rounded-lg hover:border-accent transition-colors">
-                            GitHub
-                        </button>
-                    </div>
-                </div>
+                            <button class="flex-1 py-2 border border-gray-600 rounded-lg hover:border-accent transition-colors">
+                                <a target="_blank"  href="{{ $project->github_url }}" >
+                                    GitHub
+                                </a>
+                            </button>
 
-                <!-- Project 3 -->
-                <div class="project-card card-hover rounded-xl p-6 fade-in" data-category="design">
-                    <div class="h-48 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-lg mb-6 flex items-center justify-center">
-                        <div class="text-6xl">🎨</div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Design System</h3>
-                    <p class="text-gray-400 mb-4">Comprehensive design system for a fintech startup, including component library, style guide, and design tokens.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-pink-500/20 text-pink-400 rounded-full text-sm">Figma</span>
-                        <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Storybook</span>
-                        <span class="px-3 py-1 bg-orange-500/20 text-orange-400 rounded-full text-sm">Design Tokens</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <button class="flex-1 py-2 bg-accent/20 text-accent rounded-lg hover:bg-accent hover:text-white transition-colors">
-                            View Design
-                        </button>
-                        <button class="flex-1 py-2 border border-gray-600 rounded-lg hover:border-accent transition-colors">
-                            Storybook
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="project-card card-hover rounded-xl p-6 fade-in" data-category="ai">
-                    <div class="h-48 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg mb-6 flex items-center justify-center">
-                        <div class="text-6xl">🤖</div>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">AI Content Generator</h3>
-                    <p class="text-gray-400 mb-4">Machine learning powered content generation tool that creates marketing copy, blog posts, and social media content.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Python</span>
-                        <span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-sm">TensorFlow</span>
-                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">FastAPI</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <button class="flex-1 py-2 bg-accent/20 text-accent rounded-lg hover:bg-accent hover:text-white transition-colors">
-                            Try Demo
-                        </button>
-                        <button class="flex-1 py-2 border border-gray-600 rounded-lg hover:border-accent transition-colors">
-                            GitHub
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Project 5 -->
-                <div class="project-card card-hover rounded-xl p-6 fade-in" data-category="web">
-                    <div class="h-48 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-lg mb-6 flex items-center justify-center">
-                        <div class="text-6xl">📊</div>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Analytics Dashboard</h3>
-                    <p class="text-gray-400 mb-4">Real-time analytics dashboard for SaaS companies with customizable widgets and advanced data visualization.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">Vue.js</span>
-                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">D3.js</span>
-                        <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">GraphQL</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <button class="flex-1 py-2 bg-accent/20 text-accent rounded-lg hover:bg-accent hover:text-white transition-colors">
-                            Live Demo
-                        </button>
-                        <button class="flex-1 py-2 border border-gray-600 rounded-lg hover:border-accent transition-colors">
-                            GitHub
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Project 6 -->
-                <div class="project-card card-hover rounded-xl p-6 fade-in" data-category="mobile">
-                    <div class="h-48 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-lg mb-6 flex items-center justify-center">
-                        <div class="text-6xl">🎵</div>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Music Streaming App</h3>
-                    <p class="text-gray-400 mb-4">iOS and Android music streaming application with offline playback, social playlists, and personalized recommendations.</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">Swift</span>
-                        <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Kotlin</span>
-                        <span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-sm">Redis</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <button class="flex-1 py-2 bg-accent/20 text-accent rounded-lg hover:bg-accent hover:text-white transition-colors">
-                            App Store
-                        </button>
-                        <button class="flex-1 py-2 border border-gray-600 rounded-lg hover:border-accent transition-colors">
-                            Case Study
-                        </button>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -417,10 +296,10 @@
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                    <a href="mailto:Clarencepalo@email.com" target="_blank"  class="project-card rounded-xl p-6 hover:shadow-2xl animate-pulse cursor-pointer">
+                    <a href="mailto:clarencepalo0618@email.com" target="_blank"  class="project-card rounded-xl p-6 hover:shadow-2xl animate-pulse cursor-pointer">
                         <div class="text-4xl mb-4">📧</div>
                         <h3 class="font-semibold mb-2">Email</h3>
-                        <p class="text-gray-400">Clarencepalo@email.com</p>
+                        <p class="text-gray-400">clarencepalo0618@email.com</p>
                     </a>
                     <a  href="https://linkedin.com/in/ClarencePalo"  target="_blank"  class="project-card rounded-xl p-6 hover:shadow-2xl animate-pulse cursor-pointer">
                         <div class="text-4xl mb-4">💼</div>

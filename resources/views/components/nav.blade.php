@@ -8,7 +8,16 @@
                 <a href="#about" class="hover:text-accent transition-colors">About</a>
                 <a href="/projects" class="hover:text-accent transition-colors">Projects</a>
                 <a href="#contact" class="hover:text-accent transition-colors">Contact</a>
-                <a href="/login" class="text-accent hover:text-blue-900 transition-colors font-semibold">Sign In</a>
+                @guest
+                    <a href="/login" class="text-accent hover:text-blue-900 transition-colors font-semibold">Sign In</a>
+                @endguest
+                @auth
+                    <form action="/logout" method="POST">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="text-red-600 hover:text-red-900 transition-colors font-semibold">Log Out</button>
+                    </form>
+                @endauth
             </div>
             <button id="mobile-menu-btn" class="md:hidden">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

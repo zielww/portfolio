@@ -16,21 +16,28 @@
 
         <!-- Login Form -->
         <div class="project-card rounded-xl p-8">
-            <form class="space-y-6">
+            <form class="space-y-6" action="/login" method="POST">
+                @csrf
                 <!-- Email Input -->
                 <div>
                     <label class="block text-sm font-medium mb-2">Email Address</label>
-                    <input type="email" required
+                    <input type="email" name="email" id="email" value="{{ old('email') }}" required
                            class="w-full px-4 py-4 bg-light-gray border border-gray-600 rounded-lg focus:border-accent focus:outline-none transition-colors"
                            placeholder="Enter your email">
+                    @error('email')
+                        <p class="text-red-600 text-xs font-semibold">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Password Input -->
                 <div>
                     <label class="block text-sm font-medium mb-2">Password</label>
-                    <input type="password" required
+                    <input type="password" name="password" required
                            class="w-full px-4 py-4 bg-light-gray border border-gray-600 rounded-lg focus:border-accent focus:outline-none transition-colors"
                            placeholder="Enter your password">
+                    @error('password')
+                        <p class="text-red-600 text-xs font-semibold">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Login Button -->
